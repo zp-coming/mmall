@@ -62,8 +62,6 @@ public class UserServiceImpl implements IUserService {
         if (!validResponse.isSuccess()) {
             return validResponse;
         }
-
-
         user.setRole(Const.Role.ROLE_CUSTOMER);
         //  MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
@@ -150,7 +148,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken) {
-        if (StringUtils.isNotBlank(forgetToken)) {
+        if (StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误,token需要传递");
         }
         ServerResponse validResponse = this.checkValid(username, Const.USERNAME);
@@ -160,7 +158,7 @@ public class UserServiceImpl implements IUserService {
         }
         // 从缓存中获取token
         String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
-        if (StringUtils.isNotBlank(token)) {
+        if (StringUtils.isBlank(token)) {
             return ServerResponse.createByErrorMessage("token无效或过期");
         }
         if (StringUtils.equals(forgetToken, token)) {
@@ -209,6 +207,7 @@ public class UserServiceImpl implements IUserService {
         }
         User updateUser = new User();
         updateUser.setId(user.getId());
+        updateUser.setUsername(user.getUsername());
         updateUser.setEmail(user.getEmail());
         updateUser.setPhone(user.getPhone());
         updateUser.setQuestion(user.getQuestion());
@@ -236,16 +235,18 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess(user);
     }
 
-//    /**
-//     * 校验是否是管理员
-//     * @param user
-//     * @return
-//     */
-//    @Override
-//    public ServerResponse checkAdminRole(User user){
-//        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
-//            return ServerResponse.createBySuccess();
-//        }
-//        return ServerResponse.createByError();
-//    }
+    // backend
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    @Override
+    public ServerResponse checkAdminRole(User user){
+        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
+    }
 }
