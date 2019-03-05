@@ -153,7 +153,7 @@ public class UserController {
     }
 
     /**
-     * 更新用户信息
+     * 登录状态更新用户信息
      * @param session
      * @param user
      * @return
@@ -176,7 +176,7 @@ public class UserController {
     }
 
     /**
-     * 获取当前个人信息
+     * 获取当前用户的详细信息，并强制登录
      * @param session
      * @return
      */
