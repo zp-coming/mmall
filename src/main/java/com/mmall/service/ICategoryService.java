@@ -20,6 +20,6 @@ public interface ICategoryService {
     ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId);
 
     // 查询当前节点的id和递归子节点的id
-    ServerResponse selectCategoryAndChildrenById(Integer categoryId);
+    ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 
 }

@@ -69,7 +69,7 @@ public class UserServiceImpl implements IUserService {
         if (resultCount == 0) {
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createByErrorMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("注册成功");
     }
 
     /**

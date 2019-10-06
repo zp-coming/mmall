@@ -1,8 +1,9 @@
 package com.mmall.util;
 
-import org.springframework.util.StringUtils;
-
 import java.security.MessageDigest;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by zp
@@ -54,6 +55,9 @@ public class MD5Util {
 
 
     private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5",
-            "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+        "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 
+    public static void main(String[] args) {
+
+    }
 }
