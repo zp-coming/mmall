@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 public class CookieUtil {
-    private final static String COOKIE_DOMAIN = ".imoocc.com";
+    private final static String COOKIE_DOMAIN = "imoocc.com";
     private final static String COOKIE_NAME = "mmall.login_token";
 
     /**
@@ -44,7 +44,7 @@ public class CookieUtil {
                 log.info("read cookieName:{},cookieValue:{}", cookie.getName(), cookie.getValue());
                 if (StringUtils.equals(cookie.getName(), COOKIE_NAME)) {
                     log.info("return cookieName:{},cookieValue:{}", cookie.getName(), cookie.getValue());
-                    return cookie.getName();
+                    return cookie.getValue();
                 }
 
             }
@@ -53,7 +53,7 @@ public class CookieUtil {
     }
 
     /**
-     * 退出登录时，将cookie删除
+     * 退出登录时，将浏览器中的cookie删除
      * @param request
      * @param response
      */
@@ -64,7 +64,7 @@ public class CookieUtil {
                 if (StringUtils.equals(cookie.getName(), COOKIE_NAME)) {
                     cookie.setDomain(COOKIE_DOMAIN);
                     cookie.setPath("/");
-                    cookie.setMaxAge(0); // 设置为0代表删除cooki
+                    cookie.setMaxAge(0); // 设置为0代表删除cookie
                     log.info("del cookieName:{},cookieValue:{}", cookie.getName(), cookie.getValue());
                     response.addCookie(cookie);
                     return;
