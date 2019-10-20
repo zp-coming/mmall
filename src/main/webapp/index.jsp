@@ -1,6 +1,6 @@
 <html>
 <body>
-<h2>Tomcat22222222222</h2>
+<h2>Tomcat2222222222</h2>
 
 springMVC上传文件
 <form name="form1" action="/manage/product/upload.do" method="post" enctype="multipart/form-data">
