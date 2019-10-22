@@ -43,8 +43,6 @@ public class UserController {
     public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse) {
         ServerResponse<User> response = iUserService.login(username, password);
         if (response.isSuccess()) {
-
-//            session.setAttribute(Const.CURRENT_USER, response.getData()); 3879F7545C7B508598FB7881A4746D69
             CookieUtil.writeLoginToken(httpServletResponse, session.getId());
             RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(response.getData()), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
         }
@@ -168,7 +166,7 @@ public class UserController {
     public ServerResponse<String> resetPassword(HttpServletRequest request, String passwordOld, String passwordNew) {
         String loginToken = CookieUtil.readLoginToken(request);
         if (StringUtils.isEmpty(loginToken)) {
-            return ServerResponse.createByErrorMessage("用户·未登录,无法获取当前用户的信息");
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
         User user = JsonUtil.string2Obj(userJsonStr, User.class);
